@@ -1,16 +1,17 @@
-const path = require('path')
+// const path = require('path')
 const chalk = require('chalk')
 const clear = require('clear')
 const figlet = require('figlet')
-const { Command } = require('commander')
-const program = new Command()
 const sao = require('sao')
-const VERSION = require('./package').version
-// const generator = path.resolve(__dirname, './')
-const generator = 'prismicio/nuxtjs-blog'
+const { Command } = require('commander')
 
-// const inquirer = require('./lib/inquirer.js')
-// const files = require('./lib/files.js')
+const inquirer  = require('./lib/inquirer')
+const replace  = require('./lib/replace-variables')
+
+const VERSION = require('./package').version
+const GITHUB_REPO = 'LouisMazel/nuxt-prismic-template'
+const program = new Command()
+
 clear()
 console.log(
   chalk.bold.keyword('dodgerblue')(
@@ -24,15 +25,27 @@ program
   .version(`@maz/cli ${VERSION}`)
 
 program
-  .command('create [out-dir]')
+  .command('create [project-name]')
   .description('run setup commands for all envs')
-  .action((outDir = '.') => {
-    console.log()
-    console.log(chalk`{cyan create-nuxt-app v${VERSION}}`)
-    console.log(chalk`✨  Generating Nuxt.js project in {cyan ${outDir}}`)
+  .action(async (projectName) => {
+    console.log(
+      chalk.bold.keyword('dodgerblue')(`@maz/cli v${VERSION}`)
+    )
     // See https://saojs.org/api.html#standalone-cli
-    sao({ generator, outDir })
+    const credentials = await inquirer.askProjectInformations(projectName)
+    const appName = projectName || credentials.projectName
+    console.log(
+      chalk`✨ Generating Nuxt.js x Prismic project in {cyan ${appName}}`
+    )
+    sao({ generator: GITHUB_REPO, outDir: appName })
       .run()
+      .then(async () => {
+        await replace({ appName, credentials })
+        console.log(
+          chalk.bold(`✅ Project created in folfer`),
+          chalk.bold.keyword('dodgerblue')(`"${appName}"`)
+        )
+      })
       .catch((err) => {
         console.trace(err)
         process.exit(1)
