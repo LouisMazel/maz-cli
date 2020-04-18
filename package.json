@@ -9,12 +9,9 @@
     "serve": "node index.js",
     "eslint": "eslint --init"
   },
-  "lint-staged": {
-    "*.{js}": "npm run lint"
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run lint"
     }
   },
   "keywords": [
@@ -44,8 +41,7 @@
     "eslint-config-esnext": "^4.0.0",
     "eslint-config-node": "^4.0.0",
     "esm": "^3.2.25",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.1.5"
+    "husky": "^4.2.5"
   },
   "bin": {
     "maz": "./index.js"
