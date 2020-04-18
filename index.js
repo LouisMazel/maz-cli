@@ -1,51 +1,42 @@
+const path = require('path')
 const chalk = require('chalk')
 const clear = require('clear')
 const figlet = require('figlet')
-const program = require('commander')
+const { Command } = require('commander')
+const program = new Command()
+const sao = require('sao')
+const VERSION = require('./package').version
+// const generator = path.resolve(__dirname, './')
+const generator = 'prismicio/nuxtjs-blog'
 
-const inquirer = require('./lib/inquirer.js')
-const files = require('./lib/files.js')
-
-program
-  .version(`@vue/cli ${require('../package').version}`)
-  .usage('<command> [options]')
-
-program
-  .command('create <app-name>')
-  .description('create a new project powered by vue-cli-service')
-  .option('-p, --preset <presetName>', 'Skip prompts and use saved or remote preset')
-  .option('-d, --default', 'Skip prompts and use default preset')
-  .option('-i, --inlinePreset <json>', 'Skip prompts and use inline JSON string as preset')
-  .option('-m, --packageManager <command>', 'Use specified npm client when installing dependencies')
-  .option('-r, --registry <url>', 'Use specified npm registry when installing dependencies (only for npm)')
-  .option('-g, --git [message]', 'Force git initialization with initial commit message')
-  .option('-n, --no-git', 'Skip git initialization')
-  .option('-f, --force', 'Overwrite target directory if it exists')
-  .option('--merge', 'Merge target directory if it exists')
-  .option('-c, --clone', 'Use git clone when fetching remote preset')
-  .option('-x, --proxy', 'Use specified proxy when creating project')
-  .option('-b, --bare', 'Scaffold project without beginner instructions')
-  .option('--skipGetStarted', 'Skip displaying "Get started" instructions')
-  .action((name, cmd) => {
-    console.log('Maz-CLI', name, cmd)
-  })
-
+// const inquirer = require('./lib/inquirer.js')
+// const files = require('./lib/files.js')
 clear()
-
 console.log(
-  chalk.yellow(
-    figlet.textSync('MAZ-CLI', { horizontalLayout: 'full' })
+  chalk.bold.keyword('dodgerblue')(
+    figlet.textSync('Maz-CLI', { horizontalLayout: 'full' })
   )
 )
 
-if (files.directoryExists('.git')) {
-  console.log(chalk.red('Already a Git repository!'))
-}
+program
 
+program
+  .version(`@maz/cli ${VERSION}`)
 
-const run = async () => {
-  const credentials = await inquirer.askGithubCredentials()
-  console.log(credentials)
-}
+program
+  .command('create [out-dir]')
+  .description('run setup commands for all envs')
+  .action((outDir = '.') => {
+    console.log()
+    console.log(chalk`{cyan create-nuxt-app v${VERSION}}`)
+    console.log(chalk`✨  Generating Nuxt.js project in {cyan ${outDir}}`)
+    // See https://saojs.org/api.html#standalone-cli
+    sao({ generator, outDir })
+      .run()
+      .catch((err) => {
+        console.trace(err)
+        process.exit(1)
+      })
+  })
 
-run()
+program.parse(process.argv)
