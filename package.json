@@ -1,6 +1,6 @@
 {
   "name": "maz-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CLI Tool to create Nuxt/Prismic project",
   "main": "index.js",
   "author": "Louis Mazel <me@loicmazuel.com>",
@@ -51,7 +51,7 @@
     "husky": "^4.2.5"
   },
   "bin": {
-    "maz": "./index.js"
+    "maz": "index.js"
   },
   "repository": {
     "type": "git",

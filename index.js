@@ -11,7 +11,7 @@ const replace  = require('./lib/replace-variables')
 const install  = require('./lib/install-dependencies')
 
 const VERSION = require('./package').version
-const NAME = require('./package').version
+const NAME = require('./package').name
 // https://github.com/tj/commander.js
 const program = new Command()
 
@@ -23,7 +23,6 @@ console.log(
 )
 
 program
-  .name(NAME)
   .version(`${NAME} ${VERSION}`)
 
 program
@@ -44,6 +43,14 @@ program
     console.log(
       chalk.bold(`✅ Project created in folfer`),
       chalk.bold.keyword('dodgerblue')(`"${appName}"`)
+    )
+    console.log()
+    console.log(chalk.bold(`Run project:`))
+    console.log(
+      chalk(`    cd ${appName}`)
+    )
+    console.log(
+      chalk(`    npm run serve`)
     )
     process.exit(0)
   })
