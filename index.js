@@ -11,19 +11,20 @@ const replace  = require('./lib/replace-variables')
 const install  = require('./lib/install-dependencies')
 
 const VERSION = require('./package').version
+const NAME = require('./package').version
 // https://github.com/tj/commander.js
 const program = new Command()
 
 clear()
 console.log(
   chalk.bold.keyword('dodgerblue')(
-    figlet.textSync('@maz/cli', { horizontalLayout: 'full' })
+    figlet.textSync(NAME, { horizontalLayout: 'full' })
   )
 )
 
 program
-  .name('@maz/cli')
-  .version(`@maz/cli ${VERSION}`)
+  .name(NAME)
+  .version(`${NAME} ${VERSION}`)
 
 program
   .command('create [app-name]')
@@ -31,7 +32,7 @@ program
   .action(async (appName) => {
     console.log()
     console.log(
-      chalk.bold.keyword('dodgerblue')(`@maz/cli v${VERSION}`)
+      chalk.bold.keyword('dodgerblue')(`${NAME} v${VERSION}`)
     )
     console.log()
     const credentials = await inquirer.askProjectInformations(appName)
