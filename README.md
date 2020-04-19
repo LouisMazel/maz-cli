@@ -5,7 +5,7 @@
 ## Install Maz CLI
 
 ```bash
-npm install maz-cli
+npm install -g maz-cli
 ```
 
 ## Create new project
