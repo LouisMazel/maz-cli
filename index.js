@@ -38,16 +38,16 @@ program
     const outDir = appName || credentials.appName
     const installer = credentials.appInstaller
     await generate({ outDir })
-    await replace({ appName, credentials })
+    await replace({ outDir, credentials })
     await install({ installer, outDir })
     console.log(
       chalk.bold(`✅ Project created in folfer`),
-      chalk.bold.keyword('dodgerblue')(`"${appName}"`)
+      chalk.bold.keyword('dodgerblue')(`"${outDir}"`)
     )
     console.log()
     console.log(chalk.bold(`Run project:`))
     console.log(
-      chalk(`    cd ${appName}`)
+      chalk(`    cd ${outDir}`)
     )
     console.log(
       chalk(`    npm run serve`)
