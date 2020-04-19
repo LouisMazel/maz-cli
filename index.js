@@ -1,55 +1,48 @@
-// const path = require('path')
 const chalk = require('chalk')
 const clear = require('clear')
 const figlet = require('figlet')
-const sao = require('sao')
 const { Command } = require('commander')
 
-const inquirer  = require('./lib/inquirer')
+const inquirer = require('./lib/inquirer')
+const generate = require('./lib/generate-project')
 const replace  = require('./lib/replace-variables')
+const install  = require('./lib/install-dependencies')
 
 const VERSION = require('./package').version
-const GITHUB_REPO = 'LouisMazel/nuxt-prismic-template'
+// https://github.com/tj/commander.js
 const program = new Command()
 
 clear()
 console.log(
   chalk.bold.keyword('dodgerblue')(
-    figlet.textSync('Maz-CLI', { horizontalLayout: 'full' })
+    figlet.textSync('@maz/cli', { horizontalLayout: 'full' })
   )
 )
 
 program
-
-program
+  .name('@maz/cli')
   .version(`@maz/cli ${VERSION}`)
 
 program
-  .command('create [project-name]')
+  .command('create [app-name]')
   .description('run setup commands for all envs')
-  .action(async (projectName) => {
+  .action(async (appName) => {
+    console.log()
     console.log(
       chalk.bold.keyword('dodgerblue')(`@maz/cli v${VERSION}`)
     )
-    // See https://saojs.org/api.html#standalone-cli
-    const credentials = await inquirer.askProjectInformations(projectName)
-    const appName = projectName || credentials.projectName
+    console.log()
+    const credentials = await inquirer.askProjectInformations(appName)
+    const outDir = appName || credentials.appName
+    const installer = credentials.appInstaller
+    await generate({ outDir })
+    await replace({ appName, credentials })
+    await install({ installer, outDir })
     console.log(
-      chalk`✨ Generating Nuxt.js x Prismic project in {cyan ${appName}}`
+      chalk.bold(`✅ Project created in folfer`),
+      chalk.bold.keyword('dodgerblue')(`"${appName}"`)
     )
-    sao({ generator: GITHUB_REPO, outDir: appName })
-      .run()
-      .then(async () => {
-        await replace({ appName, credentials })
-        console.log(
-          chalk.bold(`✅ Project created in folfer`),
-          chalk.bold.keyword('dodgerblue')(`"${appName}"`)
-        )
-      })
-      .catch((err) => {
-        console.trace(err)
-        process.exit(1)
-      })
+    process.exit(0)
   })
 
 program.parse(process.argv)
