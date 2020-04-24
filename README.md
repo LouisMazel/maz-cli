@@ -14,13 +14,24 @@
 
 ```bash
 npm install -g maz-cli
-```
-
 or
-
-```bash
-yarn global add maz-cli
+# yarn global add maz-cli
 ```
+
+## Prerequisites
+
+1. Prismic
+    - Prismic account & repo created
+1. Website public URL or future URL. Can be changed
+1. `optionnal` Client e-mail
+    - [mailgun](https://www.mailgun.com/):
+      - apiKey
+      - domain
+    - SMTP:
+      - host
+      - port
+      - auth user
+      - auth pass
 
 ## Create new project
 
@@ -28,11 +39,18 @@ yarn global add maz-cli
 maz-cli create <app-name>
 ```
 
-## Features & prerequisites
+## Features
 
 1. Choose the package manager
     - Yarn
     - Npm
+1. Choose your theme colors
+    - Primary color (default: `dodgerblue`)
+    - Secondary color (default: `gold`)
+    - Default dark theme
+1. Sending contact e-mail `optionnal`
+    - With [mailgun](https://www.mailgun.com/)
+    - Or any SMTP client
 
 ## CLI Options
 
