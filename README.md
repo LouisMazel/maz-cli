@@ -24,7 +24,7 @@ or
     - Prismic account & repo created
 1. Website public URL or future URL. Can be changed
 1. `optionnal` Client e-mail
-    - [mailgun](https://www.mailgun.com/):
+    - [Mailgun](https://www.mailgun.com/):
       - apiKey
       - domain
     - SMTP:
@@ -49,7 +49,7 @@ maz-cli create <app-name>
     - Secondary color (default: `gold`)
     - Default dark theme
 1. Sending contact e-mail `optionnal`
-    - With [mailgun](https://www.mailgun.com/)
+    - With [Mailgun](https://www.mailgun.com/)
     - Or any SMTP client
 
 ## CLI Options
