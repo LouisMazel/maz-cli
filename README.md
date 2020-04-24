@@ -61,3 +61,7 @@ Alias: `-h` --> Show version number and exit
 ### `--version`
 
 Alias: `-v` --> Show version number and exit
+
+## In comming features
+
+- Multiple languages website
