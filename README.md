@@ -1,5 +1,3 @@
-<img alt="maz" src="./svg/maz.svg" style="max-width: 150px;" >
-
 # Maz CLI
 
 [![license](https://img.shields.io/github/license/LouisMazel/maz-cli.svg?style=flat-square)](https://github.com/LouisMazel/maz-cli/blob/master/LICENSE)
