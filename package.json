@@ -1,10 +1,10 @@
 {
   "name": "maz-cli",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "CLI Tool to create Nuxt/Prismic project",
   "author": "Louis Mazel <me@loicmazuel.com>",
   "bin": {
-    "maz": "./bin/maz.js"
+    "maz": "bin/maz.js"
   },
   "scripts": {
     "lint": "eslint './bin' './lib'",
