@@ -52,14 +52,20 @@ program
     console.log()
     console.log(chalk.bold.keyword('dodgerblue')(`${NAME} v${VERSION}`))
     console.log()
-    const credentials = await inquirer.askProjectInformations(appName)
-    const outDir = appName || credentials.appName
-    const installer = credentials.appInstaller
+    let emailCredentials
+    const projectInfos = await inquirer.askProjectInformations(appName)
+    const { appEmailing } = projectInfos
+    if (appEmailing === 'mailgun' || appEmailing === 'smtp') {
+      emailCredentials = await inquirer.askClientEmailCredentials(appEmailing)
+      console.log('emailCredentials', emailCredentials)
+    }
+    const outDir = appName || projectInfos.appName
+    const installer = await inquirer.askInstaller()
     await generate({ outDir })
-    await replace({ outDir, credentials })
-    await install({ installer, outDir })
+    await replace({ outDir, projectInfos })
+    // await install({ installer, outDir })
     console.log(
-      chalk.bold(`✅ Project created in folfer`),
+      chalk.bold(`✅ Project created in directory`),
       chalk.bold.keyword('dodgerblue')(`'${outDir}'`)
     )
     console.log()
