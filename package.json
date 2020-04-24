@@ -1,24 +1,21 @@
 {
   "name": "maz-cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "CLI Tool to create Nuxt/Prismic project",
-  "main": "index.js",
   "author": "Louis Mazel <me@loicmazuel.com>",
+  "bin": {
+    "maz": "./bin/maz.js"
+  },
   "scripts": {
-    "lint": "eslint './lib' 'index.js'",
+    "lint": "eslint './bin' './lib'",
     "lint:fix": "npm run lint -- --fix",
-    "serve": "node index.js",
-    "eslint": "eslint --init"
+    "serve": "node ./bin/maz.js"
   },
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
     }
   },
-  "files": [
-    "lib/",
-    "index.js"
-  ],
   "keywords": [
     "maz-cli"
   ],
@@ -50,12 +47,12 @@
     "esm": "^3.2.25",
     "husky": "^4.2.5"
   },
-  "bin": {
-    "maz": "index.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LouisMazel/maz-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LouisMazel/maz-cli/issues"
   },
   "homepage": "https://github.com/LouisMazel/maz-cli"
 }

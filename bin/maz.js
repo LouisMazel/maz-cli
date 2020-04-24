@@ -5,13 +5,13 @@ const clear = require('clear')
 const figlet = require('figlet')
 const { Command } = require('commander')
 
-const inquirer = require('./lib/inquirer')
-const generate = require('./lib/generate-project')
-const replace  = require('./lib/replace-variables')
-const install  = require('./lib/install-dependencies')
+const inquirer = require('../lib/inquirer')
+const generate = require('../lib/generate-project')
+const replace  = require('../lib/replace-variables')
+const install  = require('../lib/install-dependencies')
 
-const VERSION = require('./package').version
-const NAME = require('./package').name
+const VERSION = require('../package').version
+const NAME = require('../package').name
 // https://github.com/tj/commander.js
 const program = new Command()
 
