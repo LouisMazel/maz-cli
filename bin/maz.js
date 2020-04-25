@@ -78,4 +78,6 @@ program
     process.exit(0)
   })
 
+if (process.argv.length <= 2) return program.outputHelp()
+
 program.parse(process.argv)
