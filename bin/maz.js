@@ -73,8 +73,10 @@ program
     )
     console.log()
     console.log(chalk.bold(`Run project:`))
+    console.log()
     console.log(chalk(`    cd ${outDir}`))
     console.log(chalk(`    npm run serve`))
+    console.log()
     process.exit(0)
   })
 
