@@ -57,13 +57,16 @@ program
     const { appEmailing } = projectInfos
     if (appEmailing === 'mailgun' || appEmailing === 'smtp') {
       emailCredentials = await inquirer.askClientEmailCredentials(appEmailing)
-      console.log('emailCredentials', emailCredentials)
     }
+    const { installer } = await inquirer.askInstaller()
     const outDir = appName || projectInfos.appName
-    const installer = await inquirer.askInstaller()
     await generate({ outDir })
-    await replace({ outDir, projectInfos })
-    // await install({ installer, outDir })
+    const allinfos =  {
+      ...projectInfos,
+      ...emailCredentials
+    }
+    await replace({ outDir, allinfos })
+    await install({ installer, outDir })
     console.log(
       chalk.bold(`✅ Project created in directory`),
       chalk.bold.keyword('dodgerblue')(`'${outDir}'`)
