@@ -9,6 +9,8 @@ const inquirer = require('../lib/inquirer')
 const generate = require('../lib/generate-project')
 const replace = require('../lib/replace-variables')
 const install = require('../lib/install-dependencies')
+const svg = require('../lib/create-svg-logo')
+const addLogo = require('../lib/add-logo-to-project')
 
 const VERSION = require('../package').version
 const NAME = require('../package').name
@@ -21,6 +23,9 @@ console.log(
     figlet.textSync(NAME, { horizontalLayout: 'full' })
   )
 )
+console.log()
+console.log(chalk.bold.keyword('dodgerblue')(`${NAME} v${VERSION}`))
+console.log()
 
 program
   .version(`${NAME} ${VERSION}`)
@@ -49,9 +54,6 @@ program
   .command('create [app-name]')
   .description('To create Nuxt x Prismic')
   .action(async (appName) => {
-    console.log()
-    console.log(chalk.bold.keyword('dodgerblue')(`${NAME} v${VERSION}`))
-    console.log()
     let emailCredentials
     const projectInfos = await inquirer.askProjectInformations(appName)
     const { appEmailing } = projectInfos
@@ -59,7 +61,7 @@ program
       emailCredentials = await inquirer.askClientEmailCredentials(appEmailing)
     }
     const { installer } = await inquirer.askInstaller()
-    const outDir = appName || projectInfos.appName
+    const outDir = (appName || projectInfos.appName).toLowerCase()
     await generate({ outDir })
     const allinfos =  {
       ...projectInfos,
@@ -67,6 +69,8 @@ program
     }
     await replace({ outDir, allinfos })
     await install({ installer, outDir })
+    const svgHTML = await svg({ outDir, fillColor: projectInfos.appColorPrimary, strokeColor: projectInfos.appColorSecondary })
+    await addLogo({ outDir, svgHTML })
     console.log(
       chalk.bold(`✅ Project created in directory`),
       chalk.bold.keyword('dodgerblue')(`'${outDir}'`)
@@ -77,6 +81,15 @@ program
     console.log(chalk(`    cd ${outDir}`))
     console.log(chalk(`    npm run serve`))
     console.log()
+    process.exit(0)
+  })
+
+program
+  .command('get-svg [app-name] [fill-color] [stroke-color]')
+  .description('Generate SVG with String')
+  .action(async (appName, fillColor, strokeColor) => {
+    const svgHTML = await svg({ appName, fillColor, strokeColor })
+    console.log(svgHTML)
     process.exit(0)
   })
 
