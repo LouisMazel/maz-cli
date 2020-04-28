@@ -1,6 +1,6 @@
 {
   "name": "maz-cli",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "CLI Tool to create Nuxt/Prismic project",
   "author": "Louis Mazel <me@loicmazuel.com>",
   "bin": {
