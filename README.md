@@ -8,7 +8,7 @@
 
 [![npm](https://nodei.co/npm/maz-cli.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/maz-ui)
 
-> CLI Tool to create Nuxt/Prismic project
+> CLI Tool to create Nuxt x Prismic project
 
 ## Install
 
@@ -33,7 +33,7 @@ or
       - auth user
       - auth pass
 
-## Create new project
+## Create project Nuxt x Prismic
 
 ```bash
 maz-cli create <app-name>
