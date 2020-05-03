@@ -36,7 +36,7 @@ or
 ## Create project Nuxt x Prismic
 
 ```bash
-maz-cli create <app-name>
+maz create <app-name>
 ```
 
 ## Features
